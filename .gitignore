@@ -9,3 +9,6 @@ settings.json
 tags
 *~
 
+# Python
+.venv
+__pycache__
