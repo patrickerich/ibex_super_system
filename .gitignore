@@ -1,0 +1,11 @@
+# Build output
+build
+
+# Common editor/IDE config and temporary files
+.project
+.vscode/
+settings.json
+.sw[a-p]
+tags
+*~
+
