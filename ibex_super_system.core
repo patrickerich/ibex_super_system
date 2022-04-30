@@ -49,4 +49,4 @@ targets:
       - PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx
     tools:
       vivado:
-        part: "xc7a35tcsg324-1"  # Default to Arty A7-35
+        part: "xc7a100tcsg324-1"  # Changed default to Arty A7-100

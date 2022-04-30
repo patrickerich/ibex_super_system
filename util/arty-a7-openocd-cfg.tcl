@@ -14,7 +14,9 @@ reset_config none
 # Configure JTAG chain and the target processor
 set _CHIPNAME riscv
 
-jtag newtap $_CHIPNAME cpu -irlen 6 -expected-id 0x0362D093 -ignore-version
+#jtag newtap $_CHIPNAME cpu -irlen 6 -expected-id 0x0362D093 -ignore-version
+# Changed expected ID because of different FPGA target
+jtag newtap $_CHIPNAME cpu -irlen 6 -expected-id 0x13631093 -ignore-version
 set _TARGETNAME $_CHIPNAME.cpu
 target create $_TARGETNAME riscv -chain-position $_TARGETNAME
 
