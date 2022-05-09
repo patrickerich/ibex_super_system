@@ -1,5 +1,6 @@
-#include "gpio.h"
+#include "super_system.h"
 #include "dev_access.h"
+#include "gpio.h"
 
 void set_outputs(gpio_t gpio, uint32_t outputs) {
   DEV_WRITE(gpio, outputs);
@@ -27,3 +28,21 @@ uint32_t get_output_bit(gpio_t gpio, uint32_t output_bit_index) {
 
   return output_bits;
 }
+
+void simple_gpi_handler(void) __attribute__((interrupt));
+
+void simple_gpi_handler(void) {
+}
+
+void gpi_init(void) {
+  install_exception_handler(16, &simple_gpi_handler);
+}
+
+void gpi_enable(void) {
+  // enable timer interrupt
+  asm volatile("csrs  mie, %0\n" : : "r"(1<<16));
+  // enable global interrupt
+  asm volatile("csrs  mstatus, %0\n" : : "r"(0x8));
+}
+
+void gpi_disable(void) { asm volatile("csrc  mie, %0\n" : : "r"(0x00)); }

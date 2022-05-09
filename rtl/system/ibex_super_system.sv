@@ -5,6 +5,7 @@ module ibex_super_system #(
   input logic                 clk_sys_i,
   input logic                 rst_sys_ni,
 
+  input logic                 gp_i,
   output logic [GpoWidth-1:0] gp_o,
   output logic                uart_tx_o
 );
@@ -50,6 +51,7 @@ module ibex_super_system #(
   localparam int NrHosts = DBG ? 2 : 1;
 
   // interrupts
+  logic gpi_irq;
   logic timer_irq;
 
   // host and device signals
@@ -214,7 +216,7 @@ module ibex_super_system #(
      .irq_software_i        (1'b0),
      .irq_timer_i           (timer_irq),
      .irq_external_i        (1'b0),
-     .irq_fast_i            (15'b0),
+     .irq_fast_i            ({14'b0, gpi_irq}),
      .irq_nm_i              (1'b0),
 
      .debug_req_i           (dm_debug_req),
@@ -265,7 +267,9 @@ module ibex_super_system #(
     .device_rvalid_o(device_rvalid[Gpio]),
     .device_rdata_o (device_rdata[Gpio]),
 
-    .gp_o
+    .gp_i           (gp_i),
+    .gp_intr_o      (gpi_irq),
+    .gp_o           (gp_o)
   );
 
   uart #(

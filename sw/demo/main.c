@@ -3,6 +3,8 @@
 #include "gpio.h"
 
 int main(void) {
+  gpi_init();
+  gpi_enable();
   timer_init();
   timer_enable(50000000);
 

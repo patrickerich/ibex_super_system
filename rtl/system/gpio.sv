@@ -12,8 +12,20 @@ module gpio #(
   output logic        device_rvalid_o,
   output logic [31:0] device_rdata_o,
 
+  input  logic        gp_i,
+  output logic        gp_intr_o,
+
   output logic [GpoWidth-1:0] gp_o
 );
+ 
+  always @(posedge clk_i or negedge rst_ni) begin
+    if (!rst_ni) begin
+      gp_intr_o <= '0;
+    end else begin
+      gp_intr_o <= gp_i;
+    end
+  end
+ 
   logic [GpoWidth-1:0] gp_d;
   logic                gp_en;
 

@@ -5,6 +5,7 @@
 module top_artya7 (
     input               IO_CLK,
     input               IO_RST_N,
+    input               IRQ,
     output [3:0]        LED,
     output [11:0]       RGB_LED,
     output              UART_TX
@@ -21,6 +22,7 @@ module top_artya7 (
     .clk_sys_i(clk_sys),
     .rst_sys_ni(rst_sys_n),
 
+    .gp_i(IRQ),
     .gp_o({LED, RGB_LED}),
     .uart_tx_o(UART_TX)
   );

@@ -17,4 +17,9 @@ void set_output_bit(gpio_t gpio, uint32_t output_bit_index,
 
 uint32_t get_output_bit(gpio_t gpio, uint32_t output_bit_index);
 
+void gpi_init();
+void gpi_enable();
+void gpi_disable();
+
+
 #endif
