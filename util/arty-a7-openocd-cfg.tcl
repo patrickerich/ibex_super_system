@@ -2,7 +2,8 @@
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 
-interface ftdi
+# interface ftdi # DEPRECATED
+adapter driver ftdi
 transport select jtag
 
 ftdi_device_desc "Digilent USB Device"
@@ -24,7 +25,8 @@ riscv set_ir idcode 0x09
 riscv set_ir dtmcs 0x22
 riscv set_ir dmi 0x23
 
-adapter_khz 10000
+# adapter_khz 10000 # DEPRECATED
+adapter speed 10000
 
 riscv set_prefer_sba on
 gdb_report_data_abort enable
