@@ -7,12 +7,17 @@ module top_artya7 (
     input               IO_RST_N,
     output [3:0]        LED,
     output [11:0]       RGB_LED,
-    output              UART_TX
+    output              UART_TX,
+    output              UART_TX_DUP
 );
   parameter              SRAMInitFile = "";
 
   logic clk_sys, rst_sys_n;
 
+  logic uart_tx_int;
+
+  assign UART_TX     = uart_tx_int;
+  assign UART_TX_DUP = uart_tx_int;
 
   ibex_super_system #(
     .GpoWidth(16),
@@ -22,7 +27,7 @@ module top_artya7 (
     .rst_sys_ni(rst_sys_n),
 
     .gp_o({LED, RGB_LED}),
-    .uart_tx_o(UART_TX)
+    .uart_tx_o(uart_tx_int)
   );
 
   clkgen_xil7series
