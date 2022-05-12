@@ -8,6 +8,7 @@ settings.json
 .sw[a-p]
 tags
 *~
+*.jou
 
 # Python
 .venv
