@@ -1,6 +1,6 @@
 GDB := riscv32-unknown-elf-gdb
-ARTY35 := xc7a100tcsg324-1
-ARTY100 := xc7a35ticsg324-1L
+ARTY35 := xc7a35ticsg324-1L
+ARTY100 := xc7a100tcsg324-1
 FPGA ?= $(ARTY100)
 DEVICE ?= /dev/ttyUSB1
 BAUDRATE ?= 115200
@@ -36,8 +36,8 @@ load-demo-halt:
 .PHONY: screen-demo
 screen-demo:
 	@echo "Use 'ctrl-a k' to exit the screen command"
-	sleep 3
-	screen ${DEVICE} ${BAUDRATE}
+	@sleep 3
+	@screen ${DEVICE} ${BAUDRATE}
 
 .PHONY: debug-demo
 debug-demo: load-demo-halt
@@ -46,5 +46,4 @@ debug-demo: load-demo-halt
 
 .PHONY: clean
 clean:
-	rm -rf build sw/build
-	rm *.jou
+	@rm -rf build sw/build
