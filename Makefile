@@ -5,7 +5,12 @@ FPGA ?= $(ARTY100)
 DEVICE ?= /dev/ttyUSB1
 BAUDRATE ?= 115200
 
-all: build-sw build-hw program-hw load-demo
+all: build-sw build-hw program-hw load-demo-run
+
+.PHONY: lint
+lint:
+	fusesoc --cores-root=. run --target=lint \
+		lowrisc:ibex:super_system
 
 .PHONY: build-hw
 build-hw:
@@ -18,12 +23,13 @@ build-sw:
 
 .PHONY: program-hw
 program-hw:
-	fusesoc --cores-root=. run --target=synth --run \
-		lowrisc:ibex:super_system
+	make -C ./build/lowrisc_ibex_super_system_0/synth-vivado/ pgm
+	# fusesoc --cores-root=. run --target=synth --run \
+	# 	lowrisc:ibex:super_system
 
 .PHONY: start-vivado
 start-vivado:
-	make -C ./build/lowrisc_ibex_super_system_0/synth-vivado/ build-gui
+	make -C ./build/lowrisc_ibex_super_system_0/synth-vivado/ build-gui &
 
 .PHONY: load-demo-run
 load-demo-run:
@@ -43,6 +49,20 @@ screen-demo:
 debug-demo: load-demo-halt
 	$(GDB) -ex "target extended-remote localhost:3333" \
 		./sw/build/demo/demo
+
+# sim-program = $(PWD)/sw/build/blank/blank.vmem
+sim-program = $(PWD)/sw/build/demo/demo.vmem
+
+
+.PHONY: build-sim
+build-sim:
+	fusesoc --cores-root=. run --target=sim --setup --build \
+		lowrisc:ibex:super_system \
+		--SRAMInitFile=$(sim-program)
+
+.PHONY: run-sim
+run-sim: build-sw
+	./build/lowrisc_ibex_super_system_0/sim-verilator/Vibex_super_system > log.txt 2>&1
 
 .PHONY: clean
 clean:

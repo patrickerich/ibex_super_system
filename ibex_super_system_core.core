@@ -8,8 +8,10 @@ filesets:
   files_rtl_super_system:
     depend:
       - lowrisc:ibex:ibex_top
-      - lowrisc:ibex:rv_timer
       - pulp:riscv:debug_module
+      - tool_vivado ? (lowrisc:ibex:rv_timer)
+      - tool_vivado ? (lowrisc:ibex:fpga_xilinx_shared)
+      - tool_verilator ? (lowrisc:ibex:sim_shared)
     files:
       - rtl/system/ibex_super_system.sv
       - rtl/system/dm_top.sv

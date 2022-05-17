@@ -19,7 +19,8 @@ filesets:
       - vendor/pulp_riscv_dbg/src/dm_mem.sv
       - vendor/pulp_riscv_dbg/src/dmi_cdc.sv
       - vendor/pulp_riscv_dbg/src/dmi_jtag.sv
-      - vendor/pulp_riscv_dbg/src/dmi_bscane_tap.sv
+      - tool_vivado ? (vendor/pulp_riscv_dbg/src/dmi_bscane_tap.sv)
+      - tool_verilator ? (vendor/pulp_riscv_dbg/src/dmi_jtag_tap.sv)
     file_type: systemVerilogSource
 
 targets:
