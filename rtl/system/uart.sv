@@ -47,10 +47,10 @@ module uart #(
 
   assign reg_addr = device_addr_i[11:0];
 
-  assign tx_fifo_wvalid = (device_req_i & (reg_addr == UART_TX_REG) & device_be_i[0] & device_we_i);
+  assign tx_fifo_wvalid = (device_req_i & (reg_addr == $bits(reg_addr)'(UART_TX_REG)) & device_be_i[0] & device_we_i);
   assign tx_fifo_rready = baud_tick & next_tx_byte;
 
-  assign read_status_d = (device_req_i & (reg_addr == UART_STATUS_REG) & device_be_i[0] & ~device_we_i);
+  assign read_status_d = (device_req_i & (reg_addr == $bits(reg_addr)'(UART_STATUS_REG)) & device_be_i[0] & ~device_we_i);
 
   assign device_rdata_o = read_status_q ? {31'b0, tx_fifo_full} : 32'b0;
   assign device_rvalid_o = req;
@@ -77,7 +77,7 @@ module uart #(
   );
 
   assign baud_counter_d = baud_tick ? '0 : baud_counter_q + 1'b1;
-  assign baud_tick      = baud_counter_q == (ClocksPerBaud - 1);
+  assign baud_tick      = baud_counter_q == $bits(baud_counter_q)'(ClocksPerBaud - 1);
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin

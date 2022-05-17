@@ -180,8 +180,8 @@ module ibex_super_system #(
      .RegFile(ibex_pkg::RegFileFPGA),
      .DbgTriggerEn(DbgTriggerEn),
      .DbgHwBreakNum(DbgHwBreakNum),
-     .DmHaltAddr(DEBUG_START + dm::HaltAddress),
-     .DmExceptionAddr(DEBUG_START + dm::ExceptionAddress)
+     .DmHaltAddr(DEBUG_START + $bits(DEBUG_START)'(dm::HaltAddress)),
+     .DmExceptionAddr(DEBUG_START + $bits(DEBUG_START)'(dm::ExceptionAddress))
   ) u_top (
      .clk_i                 (clk_sys_i),
      .rst_ni                (rst_core_n),
@@ -199,6 +199,7 @@ module ibex_super_system #(
      .instr_rvalid_i        (core_instr_rvalid),
      .instr_addr_o          (core_instr_addr),
      .instr_rdata_i         (core_instr_rdata),
+     .instr_rdata_intg_i    ('b0),
      .instr_err_i           ('b0),
 
      .data_req_o            (host_req[CoreD]),
@@ -208,7 +209,9 @@ module ibex_super_system #(
      .data_be_o             (host_be[CoreD]),
      .data_addr_o           (host_addr[CoreD]),
      .data_wdata_o          (host_wdata[CoreD]),
+     .data_wdata_intg_o     (),
      .data_rdata_i          (host_rdata[CoreD]),
+     .data_rdata_intg_i     ('b0),
      .data_err_i            (host_err[CoreD]),
 
      .irq_software_i        (1'b0),
@@ -217,8 +220,14 @@ module ibex_super_system #(
      .irq_fast_i            (15'b0),
      .irq_nm_i              (1'b0),
 
+     .scramble_key_valid_i  ('b0),
+     .scramble_key_i        ('b0),
+     .scramble_nonce_i      ('b0),
+     .scramble_req_o        (),
+
      .debug_req_i           (dm_debug_req),
      .crash_dump_o          (),
+     .double_fault_seen_o   (),
 
      .fetch_enable_i        ('1),
      .alert_minor_o         (),
