@@ -369,5 +369,14 @@ module ibex_super_system #(
     function automatic longint unsigned mhpmcounter_get(int index);
       return u_top.u_ibex_core.cs_registers_i.mhpmcounter[index];
     endfunction
+
+    initial begin
+      if ($test$plusargs("trace") != 0) begin
+         $display("[%0t] Tracing to logs/dump.fst...\n", $time);
+         $dumpfile("logs/dump.fst");
+         $dumpvars();
+      end
+      $display("[%0t] Model running...\n", $time);
+    end
   `endif
 endmodule
