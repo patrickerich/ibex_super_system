@@ -1,8 +1,9 @@
 #ifndef UART_H__
 #define UART_H__
 
-#define UART_TX_REG 0
-#define UART_STATUS_REG 4
+#define UART_RX_REG 0
+#define UART_TX_REG 4
+#define UART_STATUS_REG 8
 
 #define UART_STATUS_TX_FULL 1
 

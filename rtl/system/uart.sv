@@ -21,8 +21,11 @@ module uart #(
   logic [$clog2(ClocksPerBaud)-1:0] baud_counter_q, baud_counter_d;
   logic                             baud_tick;
 
-  localparam int unsigned UART_TX_REG = 32'h0;
-  localparam int unsigned UART_STATUS_REG = 32'h4;
+  localparam int unsigned UART_RX_REG = 32'h0;
+  // localparam int unsigned UART_TX_REG = 32'h0;
+  localparam int unsigned UART_TX_REG = 32'h4;
+  // localparam int unsigned UART_STATUS_REG = 32'h4;
+  localparam int unsigned UART_STATUS_REG = 32'h8;
 
   typedef enum logic[1:0] {
     IDLE,
