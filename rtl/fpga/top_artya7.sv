@@ -8,7 +8,8 @@ module top_artya7 (
     output [3:0]        LED,
     output [11:0]       RGB_LED,
     output              UART_TX,
-    output              UART_TX_DUP
+    // output              CLK_SYS_MON,
+    output              UART_TX_MON
 );
   parameter              SRAMInitFile = "";
 
@@ -17,7 +18,9 @@ module top_artya7 (
   logic uart_tx_int;
 
   assign UART_TX     = uart_tx_int;
-  assign UART_TX_DUP = uart_tx_int;
+  // assign CLK_SYS_MON = clk_sys;
+  assign UART_TX_MON = uart_tx_int;
+
 
   ibex_super_system #(
     .GpoWidth(16),
