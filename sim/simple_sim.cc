@@ -17,6 +17,8 @@
 // Legacy function required only so linking works on Cygwin and MSVC++
 // double sc_time_stamp() { return 0; }
 
+#define CLKS 100000000
+
 int main(int argc, char** argv, char** env) {
     // This is a more complicated example, please also see the simpler examples/make_hello_c.
 
@@ -68,7 +70,7 @@ int main(int argc, char** argv, char** env) {
 
 
     // Simulate until $finish
-    while (!contextp->gotFinish() && contextp->time() < 1000) {
+    while (!contextp->gotFinish() && contextp->time() < 2*CLKS) {
         // Historical note, before Verilator 4.200 Verilated::gotFinish()
         // was used above in place of contextp->gotFinish().
         // Most of the contextp-> calls can use Verilated:: calls instead;
@@ -110,8 +112,8 @@ int main(int argc, char** argv, char** env) {
         //           " owide=%x_%08x_%08x\n",
         //           contextp->time(), ibex_super_system->clk, ibex_super_system->reset_l, ibex_super_system->in_quad, ibex_super_system->out_quad,
         //           ibex_super_system->out_wide[2], ibex_super_system->out_wide[1], ibex_super_system->out_wide[0]);
-        VL_PRINTF("[%" PRId64 "] clk=%x rstl=%x \n",
-                  contextp->time(), ibex_super_system->clk_sys_i, ibex_super_system->rst_sys_ni);
+        // VL_PRINTF("[%" PRId64 "] clk=%x rstl=%x \n",
+        //           contextp->time(), ibex_super_system->clk_sys_i, ibex_super_system->rst_sys_ni);
     }
 
     // Final model cleanup
