@@ -54,6 +54,10 @@ debug-demo: load-demo-halt
 	$(GDB) -ex "target extended-remote localhost:3333" \
 		$(HWPROG)
 
+.PHONY: py-hello
+py-hello:
+	python sw/demo/uart_hello.py
+
 .PHONY: build-sim
 build-sim:
 	fusesoc --cores-root=. run --target=sim --setup --build \

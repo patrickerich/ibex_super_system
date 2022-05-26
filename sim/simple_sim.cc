@@ -17,7 +17,9 @@
 // Legacy function required only so linking works on Cygwin and MSVC++
 // double sc_time_stamp() { return 0; }
 
-#define CLKS 100000000
+// #define CLKS 100000000
+#define CLKS 1000000
+// #define CLKS 60000000
 
 int main(int argc, char** argv, char** env) {
     // This is a more complicated example, please also see the simpler examples/make_hello_c.
@@ -67,7 +69,7 @@ int main(int argc, char** argv, char** env) {
     // ibex_super_system->in_wide[2] = 0x3;
     ibex_super_system->clk_sys_i = 0;
     ibex_super_system->rst_sys_ni = !0;
-
+    ibex_super_system->uart_rx_i = 1;
 
     // Simulate until $finish
     while (!contextp->gotFinish() && contextp->time() < 2*CLKS) {
@@ -99,7 +101,61 @@ int main(int argc, char** argv, char** env) {
             }
             // Assign some other inputs
             // ibex_super_system->in_quad += 0x12;
+            if (contextp->time() < 151000) {
+                ibex_super_system->uart_rx_i = 1;
+            }
+            else if (contextp->time() < 151868) {
+                ibex_super_system->uart_rx_i = 0;
+            }
+            
+            else if (contextp->time() < 171000) {
+                ibex_super_system->uart_rx_i = 1;
+            }
+            else if (contextp->time() < 171868) {
+                ibex_super_system->uart_rx_i = 0;
+            }
+
+            else if (contextp->time() < 191000) {
+                ibex_super_system->uart_rx_i = 1;
+            }
+            else if (contextp->time() < 191868) {
+                ibex_super_system->uart_rx_i = 0;
+            }
+
+            else if (contextp->time() < 211000) {
+                ibex_super_system->uart_rx_i = 1;
+            }
+            else if (contextp->time() < 211868) {
+                ibex_super_system->uart_rx_i = 0;
+            }
+
+            else if (contextp->time() < 231000) {
+                ibex_super_system->uart_rx_i = 1;
+            }
+            else if (contextp->time() < 231868) {
+                ibex_super_system->uart_rx_i = 0;
+            }
+
+            else if (contextp->time() < 251000) {
+                ibex_super_system->uart_rx_i = 1;
+            }
+            else if (contextp->time() < 251868) {
+                ibex_super_system->uart_rx_i = 0;
+            }
+
+            else if (contextp->time() < 271000) {
+                ibex_super_system->uart_rx_i = 1;
+            }
+            else if (contextp->time() < 271868) {
+                ibex_super_system->uart_rx_i = 0;
+            }
+
+            else {
+                ibex_super_system->uart_rx_i = 1;
+            }
         }
+
+
 
         // Evaluate model
         // (If you have multiple models being simulated in the same

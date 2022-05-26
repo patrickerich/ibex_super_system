@@ -1,34 +1,75 @@
 [*]
 [*] GTKWave Analyzer v3.3.111 (w)1999-2020 BSI
-[*] Sat May 21 14:34:39 2022
+[*] Wed May 25 11:19:20 2022
 [*]
 [dumpfile] "/home/patrick/Projects/RISCV/ibex_super_system/logs/dump.fst"
-[dumpfile_mtime] "Sat May 21 14:17:59 2022"
-[dumpfile_size] 1310613829
+[dumpfile_mtime] "Wed May 25 11:00:43 2022"
+[dumpfile_size] 15164971
 [savefile] "/home/patrick/Projects/RISCV/ibex_super_system/traces.sav"
-[timestart] 99996330
+[timestart] 159246
 [size] 2560 1403
 [pos] -1 -1
-*-10.225645 99998760 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*0.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.ibex_super_system.
-[sst_width] 227
+[treeopen] TOP.ibex_super_system.u_top.
+[treeopen] TOP.ibex_super_system.u_top.u_ibex_core.
+[treeopen] TOP.ibex_super_system.u_top.u_ibex_core.cs_registers_i.
+[treeopen] TOP.ibex_super_system.u_top.u_ibex_core.cs_registers_i.mie_q.
+[treeopen] TOP.ibex_super_system.u_uart.
+[treeopen] TOP.ibex_super_system.u_uart.u_rx_fifo.
+[treeopen] TOP.ibex_super_system.u_uart.u_tx_fifo.
+[sst_width] 506
 [signals_width] 230
 [sst_expanded] 1
 [sst_vpaned_height] 630
-@800029
+@200
+-misc
+@800028
 #{TOP.ibex_super_system.device_req[0:4]} TOP.ibex_super_system.device_req[0] TOP.ibex_super_system.device_req[1] TOP.ibex_super_system.device_req[2] TOP.ibex_super_system.device_req[3] TOP.ibex_super_system.device_req[4]
-@29
+@28
 TOP.ibex_super_system.device_req[0]
 TOP.ibex_super_system.device_req[1]
 TOP.ibex_super_system.device_req[2]
 TOP.ibex_super_system.device_req[3]
 TOP.ibex_super_system.device_req[4]
-@1001201
+@1001200
 -group_end
 @28
 TOP.ibex_super_system.clk_sys_i
 TOP.rst_sys_ni
+TOP.uart_rx_i
 TOP.uart_tx_o
+@200
+-
+-uart
+@100000028
+TOP.ibex_super_system.u_uart.rx_state_q[1:0]
+TOP.ibex_super_system.u_uart.tx_state_d[1:0]
+@22
+TOP.ibex_super_system.u_uart.u_rx_fifo.gen_normal_fifo.fifo_wptr[7:0]
+TOP.ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.fifo_wptr[7:0]
+@28
+TOP.ibex_super_system.u_uart.tx_fifo_wvalid
+TOP.ibex_super_system.u_uart.rx_fifo_wvalid
+@22
+TOP.ibex_super_system.u_uart.rx_current_byte_q[7:0]
+@28
+TOP.ibex_super_system.u_uart.rx_baud_tick
+TOP.ibex_super_system.u_uart.tx_baud_tick
+@22
+TOP.ibex_super_system.u_uart.u_rx_fifo.rdata_o[7:0]
+@200
+-
+-irq
+@28
+TOP.ibex_super_system.u_top.u_ibex_core.cs_registers_i.mstatus_q.mie
+TOP.ibex_super_system.u_top.u_ibex_core.cs_registers_i.mie_q.irq_timer
+(0)TOP.ibex_super_system.u_top.u_ibex_core.cs_registers_i.mie_q.irq_fast[14:0]
+TOP.ibex_super_system.timer_irq
+(0)TOP.ibex_super_system.u_top.irq_fast_i[14:0]
+TOP.ibex_super_system.uart_irq
+@23
+TOP.ibex_super_system.u_top.u_ibex_core.cs_registers_i.mip.irq_fast[14:0]
 [pattern_trace] 1
 [pattern_trace] 0
