@@ -221,7 +221,7 @@ module ibex_super_system #(
      .irq_timer_i           (timer_irq),
      .irq_external_i        (1'b0),
     //  .irq_fast_i            (15'b0),
-     .irq_fast_i            ({uart_irq, 14'b0}),
+     .irq_fast_i            ({14'b0, uart_irq}),
      .irq_nm_i              (1'b0),
 
      .scramble_key_valid_i  ('b0),
@@ -376,13 +376,29 @@ module ibex_super_system #(
       return u_top.u_ibex_core.cs_registers_i.mhpmcounter[index];
     endfunction
 
-    initial begin
-      if ($test$plusargs("trace") != 0) begin
-         $display("[%0t] Tracing to logs/dump.fst...\n", $time);
-         $dumpfile("logs/dump.fst");
-         $dumpvars();
-      end
-      $display("[%0t] Model running...\n", $time);
-    end
+    // initial begin
+    //   if ($test$plusargs("trace") != 0) begin
+    //      $display("[%0t] Tracing to logs/dump.fst...\n", $time);
+    //      $dumpfile("logs/dump.fst");
+    //      $dumpvars();
+    //   end
+    //   $display("[%0t] Model running...\n", $time);
+    // end
   `endif
+
+  // `ifdef VERILATOR
+  //   assign clk_sys = IO_CLK;
+  //   assign rst_sys_n = IO_RST_N;
+  // `else
+  //   initial begin
+  //     rst_sys_n = 1'b0;
+  //     #8
+  //     rst_sys_n = 1'b1;
+  //   end
+  //   always begin
+  //     #1 clk_sys = 1'b0;
+  //     #1 clk_sys = 1'b1;
+  //   end
+  // `endif
+
 endmodule

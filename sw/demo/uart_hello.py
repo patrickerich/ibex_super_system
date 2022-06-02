@@ -2,10 +2,6 @@ import time
 import serial
 import serial.tools.list_ports
 
-MAX_RESPONSE_TIME = 0.1
-NEXT_TRANSACTION_WAIT_TIME = 0.1
-MAX_TRIES = 100
-
 
 def get_port():
     port_list = [i.device for i in list(serial.tools.list_ports.comports())]
@@ -25,45 +21,26 @@ def get_port():
         return ports[selection - 1]
 
 
-def serial_get(device):
-    reply = ''
-    timeout = time.time() + MAX_RESPONSE_TIME
-    while time.time() < timeout:
-        if device.in_waiting > 0:
-            try:
-                reply += device.read().decode()
-            except Exception:
-                reply += "_ERROR_"
-    return reply
-
-
 def main():
     try:
         device = serial.Serial(port=get_port(), baudrate=115200)
     except serial.serialutil.SerialException:
         print('Unable to open serial port')
     else:
-        count = 0
+        tries = 100
         error_count = 0
-        keep_going = True
-        while keep_going and count < MAX_TRIES:
-            try:
-                time.sleep(NEXT_TRANSACTION_WAIT_TIME)
-                msg = f"Hello world ({count})"
-                # print(f"Sending: {msg}", end="")
-                device.write(msg.encode('utf-8'))
-                received = serial_get(device)
-                # print(f"Received: {received}")
-                count += 1
-                if received != msg:
-                    error_count += 1
-            except KeyboardInterrupt:
-                device.close()
-                keep_going = False
-        error_rate = (error_count/count) * 100
-        print(f"count = {count}")
+        device.reset_input_buffer()
+        device.reset_output_buffer()
+        time.sleep(0.010)
+        for i in range(tries):
+            send_bytes = f"Hello world ({i})".encode('utf-8')
+            recv_bytes = device.read(device.write(send_bytes))
+            print(f"Send: {send_bytes}\tReceived: {recv_bytes}")
+            if recv_bytes != send_bytes:
+                error_count += 1
+        print(f"tries = {tries}")
         print(f"error_count = {error_count}")
-        print(f"error_rate = {error_rate}%")
+        print(f"error_rate = {100 * (error_count/tries)}%")
 
 
 if __name__ == "__main__":

@@ -9,17 +9,17 @@ HWPROG = $(PWD)/sw/build/demo/demo
 # SIMPROG = $(PWD)/sw/build/blank/blank.vmem
 SIMPROG = $(HWPROG).vmem
 
-all: build-sw build-hw program-hw load-demo-run
+all: clean build-sw build-hw program-hw load-demo-run
 
 .PHONY: lint
 lint:
 	fusesoc --cores-root=. run --target=lint \
-		lowrisc:ibex:super_system
+		lowrisc:ibex:ibex_super_system
 
 .PHONY: build-hw
 build-hw:
 	fusesoc --cores-root=. run --target=synth --setup --build \
-		lowrisc:ibex:super_system --part $(FPGA)
+		lowrisc:ibex:ibex_super_system --part $(FPGA)
 
 .PHONY: build-sw
 build-sw:
@@ -28,7 +28,7 @@ build-sw:
 .PHONY: program-hw
 program-hw:
 	fusesoc --cores-root=. run --target=synth --run \
-		lowrisc:ibex:super_system
+		lowrisc:ibex:ibex_super_system
 	# make -C ./build/lowrisc_ibex_super_system_0/synth-vivado/ pgm
 
 .PHONY: start-vivado
@@ -61,7 +61,7 @@ py-hello:
 .PHONY: build-sim
 build-sim:
 	fusesoc --cores-root=. run --target=sim --setup --build \
-		lowrisc:ibex:super_system \
+		lowrisc:ibex:ibex_super_system \
 		--SRAMInitFile=$(SIMPROG)
 
 .PHONY: run-sim

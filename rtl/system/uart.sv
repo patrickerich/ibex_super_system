@@ -18,6 +18,7 @@ module uart #(
   input  logic        uart_rx_i,
   output logic        uart_irq_o,
   output logic        uart_tx_o
+  
 );
 
   localparam int unsigned ClocksPerBaud = ClockFrequency / BaudRate;
@@ -47,7 +48,7 @@ module uart #(
   logic [2:0]  rx_bit_counter_q, rx_bit_counter_d;
   logic [7:0]  rx_current_byte_q, rx_current_byte_d;
   logic        rx_read_req_q, rx_read_req_d;
-  logic        rx_q, rx_start, rx_valid; 
+  logic        rx_q, rx_q2, rx_q3, rx_start, rx_valid; 
 
   logic        rx_fifo_wvalid;
   logic        rx_fifo_rvalid, rx_fifo_rready;
@@ -90,7 +91,6 @@ module uart #(
   assign tx_fifo_wvalid = tx_req & write_req;
   assign tx_fifo_rready = tx_baud_tick & tx_next_byte;
 
-  assign rx_start = !uart_rx_i & rx_q & (rx_state_q == IDLE);
   // Set the rx_baud_counter half-way on rx_start to ensure sampling the bits 'in the middle'
   assign rx_baud_counter_d = rx_baud_tick ? '0 : 
                              rx_start ? $bits(rx_baud_counter_q)'(ClocksPerBaud >> 1) : 
@@ -101,7 +101,6 @@ module uart #(
   assign tx_baud_tick      = tx_baud_counter_q == $bits(tx_baud_counter_q)'(ClocksPerBaud - 1);
 
   assign uart_irq_o        = !rx_fifo_empty;
-
 
   prim_fifo_sync #(
     .Width(8),
@@ -145,18 +144,31 @@ module uart #(
     .depth_o()
   );
 
+  //  Synchronize RX and derive rx_start signal
+  always_ff @(posedge clk_i or negedge rst_ni) begin
+    if (!rst_ni) begin
+      rx_q <= 0;
+      rx_q2 <= 0;
+      rx_q3 <= 0;
+    end else begin
+      rx_q <= uart_rx_i;
+      rx_q2 <= rx_q;
+      rx_q3 <= rx_q2;
+    end
+  end
+
+  assign rx_start = !rx_q2 & rx_q3 & (rx_state_q == IDLE);
+
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
       status_read_req_q <= 0;
       device_req_q      <= 0;
-      rx_q              <= 0;
       rx_read_req_q     <= 0;
       rx_baud_counter_q <= '0;
       tx_baud_counter_q <= '0;
     end else begin
       status_read_req_q <= status_read_req_d;
       device_req_q      <= device_req_i;
-      rx_q              <= uart_rx_i;
       rx_read_req_q     <= rx_read_req_d;
       rx_baud_counter_q <= rx_baud_counter_d;
       tx_baud_counter_q <= tx_baud_counter_d;
@@ -205,14 +217,14 @@ module uart #(
         rx_current_byte_d = '0;
         rx_bit_counter_d = '0;
         
-        if (!rx_q) begin
+        if (!rx_q3) begin
           rx_state_d = PROC;
         end else begin
           rx_state_d = IDLE;
         end
       end
       PROC: begin
-        rx_current_byte_d = {rx_q, rx_current_byte_q[7:1]};
+        rx_current_byte_d = {rx_q3, rx_current_byte_q[7:1]};
 
         if (rx_bit_counter_q == 3'd7) begin
           rx_state_d = STOP;
@@ -221,7 +233,7 @@ module uart #(
         end
       end
       STOP: begin
-        if (rx_q) begin
+        if (rx_q3) begin
           rx_valid = 1;
         end
         rx_state_d = IDLE;

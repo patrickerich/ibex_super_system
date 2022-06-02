@@ -1,3 +1,4 @@
+
 #include "stdio.h"
 #include "uart.h"
 #include "dev_access.h"
@@ -6,16 +7,20 @@
 void simple_uart_in_handler(void) __attribute__((interrupt));
 
 void simple_uart_in_handler(void) {
-  putchar(getchar());
+  while (!(DEV_READ(DEFAULT_UART + UART_STATUS_REG) & UART_STATUS_RX_EMPTY)) {
+    DEV_WRITE(DEFAULT_UART + UART_TX_REG, DEV_READ(DEFAULT_UART + UART_RX_REG));
+    // int c = DEV_READ(DEFAULT_UART + UART_RX_REG);
+    // DEV_WRITE(DEFAULT_UART + UART_TX_REG, c);
+  }
 }
 
 void uart_init(void) {
-  install_exception_handler(30, &simple_uart_in_handler);
+  install_exception_handler(16, &simple_uart_in_handler);
 }
 
 void uart_enable(void) {
   // enable uart interrupt
-  asm volatile("csrs  mie, %0\n" : : "r"(1<<30));
+  asm volatile("csrs  mie, %0\n" : : "r"(1<<16));
   // enable global interrupt
   asm volatile("csrs  mstatus, %0\n" : : "r"(1<<3));
 }

@@ -6,9 +6,9 @@ int main(void) {
   uart_init();
   uart_enable();
 
-  // while(1) {
-  //   asm volatile ("wfi");
-  // }
+  while(1) {
+    asm volatile ("wfi");
+  }
 }
 
 
