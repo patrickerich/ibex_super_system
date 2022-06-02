@@ -2,29 +2,66 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:ibex:super_system"
+name: "lowrisc:ibex:ibex_super_system"
 description: "Ibex Super System for Arty A7 boards (both, -35 and -100)"
-
 filesets:
+
   files_rtl_artya7:
     depend:
-      - lowrisc:ibex:super_system_core
-      # - lowrisc:ibex:fpga_xilinx_shared
+      - lowrisc:ibex:ibex_super_system_core
     files:
       - rtl/fpga/top_artya7.sv
     file_type: systemVerilogSource
+
+  files_sim:
+    depend:
+      - lowrisc:ibex:ibex_super_system_core
+    files:
+      - sim/ibex_super_system_main.cc
+    file_type: cppSource
 
   files_constraints:
     files:
       - data/pins_artya7.xdc
     file_type: xdc
 
-  files_verilator:
-    files:
-      - lint/verilator_waiver.vlt: {file_type: vlt}
-      - sim/simple_sim.cc: {file_type: cppSource}
-
 parameters:
+  # RV32E:
+  #   datatype: int
+  #   paramtype: vlogparam
+  #   default: 0
+  #   description: "Enable the E ISA extension (reduced register set) [0/1]"
+  
+  # RV32M:
+  #   datatype: str
+  #   default: ibex_pkg::RV32MFast
+  #   paramtype: vlogdefine
+  #   description: "RV32M implementation parameter enum. See the ibex_pkg::rv32m_e enum in ibex_pkg.sv for permitted values."
+  
+  # RV32B:
+  #   datatype: str
+  #   default: ibex_pkg::RV32BNone
+  #   paramtype: vlogdefine
+  #   description: "Bitmanip implementation parameter enum. See the ibex_pkg::rv32b_e enum in ibex_pkg.sv for permitted values."
+  
+  # RegFile:
+  #   datatype: str
+  #   default: ibex_pkg::RegFileFF
+  #   paramtype: vlogdefine
+  #   description: "Register file implementation parameter enum. See the ibex_pkg::regfile_e enum in ibex_pkg.sv for permitted values."
+  
+  # ICache:
+  #   datatype: int
+  #   default: 0
+  #   paramtype: vlogparam
+  #   description: "Enable instruction cache"
+  
+  # ICacheECC:
+  #   datatype: int
+  #   default: 0
+  #   paramtype: vlogparam
+  #   description: "Enable ECC protection in instruction cache"
+
   # XXX: This parameter needs to be absolute, or relative to the *.runs/synth_1
   # directory. It's best to pass it as absolute path when invoking fusesoc, e.g.
   # --SRAMInitFile=$PWD/sw/led/led.vmem
@@ -37,6 +74,72 @@ parameters:
     default: "../../../../../sw/build/blank/blank.vmem"
     paramtype: vlogparam
 
+  # BranchTargetALU:
+  #   datatype: int
+  #   paramtype: vlogparam
+  #   default: 0
+  #   description: "Enables separate branch target ALU (increasing branch performance EXPERIMENTAL)"
+
+  # WritebackStage:
+  #   datatype: int
+  #   paramtype: vlogparam
+  #   default: 0
+  #   description: "Enables third pipeline stage (EXPERIMENTAL)"
+
+  # SecureIbex:
+  #   datatype: int
+  #   default: 0
+  #   paramtype: vlogparam
+  #   description: "Enables security hardening features (EXPERIMENTAL) [0/1]"
+
+  # ICacheScramble:
+  #   datatype: int
+  #   default: 0
+  #   paramtype: vlogparam
+  #   description: "Enables ICache scrambling feature (EXPERIMENTAL) [0/1]"
+
+  # BranchPredictor:
+  #   datatype: int
+  #   paramtype: vlogparam
+  #   default: 0
+  #   description: "Enables static branch prediction (EXPERIMENTAL)"
+
+  # DbgTriggerEn:
+  #   datatype: int
+  #   default: 0
+  #   paramtype: vlogparam
+  #   description: "Enable support for debug triggers. "
+
+  # PMPEnable:
+  #   datatype: int
+  #   default: 0
+  #   paramtype: vlogparam
+  #   description: "Enable PMP"
+
+  # PMPGranularity:
+  #   datatype: int
+  #   default: 0
+  #   paramtype: vlogparam
+  #   description: "Granularity of NAPOT range, 0 = 4 byte, 1 = byte, 2 = 16 byte, 3 = 32 byte etc"
+
+  # PMPNumRegions:
+  #   datatype: int
+  #   default: 4
+  #   paramtype: vlogparam
+  #   description: "Number of PMP regions"
+
+  # MHPMCounterNum:
+  #   datatype: int
+  #   paramtype: vlogparam
+  #   default: 0
+  #   description: Number of performance monitor event counters [0/29]
+
+  # MHPMCounterWidth:
+  #   datatype: int
+  #   paramtype: vlogparam
+  #   default: 40
+  #   description: Bit width of performance monitor event counters [32/64]
+
   # For value definition, please see ip/prim/rtl/prim_pkg.sv
   PRIM_DEFAULT_IMPL:
     datatype: str
@@ -46,9 +149,9 @@ parameters:
 targets:
   default: &default_target
     filesets:
-      - files_rtl_artya7
+      - tool_vivado ? (files_rtl_artya7)
       - tool_vivado ? (files_constraints)
-      - tool_verilator ? (files_verilator)
+      - tool_verilator ? (files_sim)
     toplevel: ibex_super_system
 
   synth:
@@ -56,6 +159,23 @@ targets:
     toplevel: top_artya7
     default_tool: vivado
     parameters:
+      # - RV32E
+      # - RV32M
+      # - RV32B
+      # - RegFile
+      # - ICache
+      # - ICacheScramble
+      # - ICacheECC
+      # - BranchTargetALU
+      # - WritebackStage
+      # - SecureIbex
+      # - BranchPredictor
+      # - DbgTriggerEn
+      # - PMPEnable
+      # - PMPGranularity
+      # - PMPNumRegions
+      # - MHPMCounterNum
+      # - MHPMCounterWidth
       - SRAMInitFile
       - PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx
     tools:

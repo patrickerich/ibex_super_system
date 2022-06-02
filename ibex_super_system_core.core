@@ -2,7 +2,7 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:ibex:super_system_core"
+name: "lowrisc:ibex:ibex_super_system_core"
 description: "Ibex Super System for Arty A7 boards (both, -35 and -100)"
 filesets:
   files_rtl_super_system:
@@ -11,7 +11,6 @@ filesets:
       - pulp:riscv:debug_module
       - tool_vivado ? (lowrisc:ibex:rv_timer)
       - tool_vivado ? (lowrisc:ibex:fpga_xilinx_shared)
-      - tool_verilator ? (lowrisc:ibex:sim_shared)
     files:
       - rtl/system/ibex_super_system.sv
       - rtl/system/dm_top.sv
@@ -19,7 +18,25 @@ filesets:
       - rtl/system/uart.sv
     file_type: systemVerilogSource
 
+  files_sim:
+    depend:
+      - lowrisc:ibex:ibex_top_tracing
+      - lowrisc:ibex:sim_shared
+
+  files_verilator:
+    depend:
+      - lowrisc:dv_verilator:memutil_verilator
+      - lowrisc:dv_verilator:simutil_verilator
+      - lowrisc:dv_verilator:ibex_pcounts
+      - lowrisc:ibex:sim_shared
+    files:
+      - sim/ibex_super_system.cc: { file_type: cppSource }
+      - sim/ibex_super_system.h:  { file_type: cppSource, is_include_file: true}
+      - lint/verilator_waiver.vlt: {file_type: vlt}
+
 targets:
   default:
     filesets:
       - files_rtl_super_system
+      - files_sim
+      - tool_verilator ? (files_verilator)
