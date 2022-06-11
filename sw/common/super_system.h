@@ -27,7 +27,7 @@ int putchar(int c);
  * Reads character from default UART. Signature matches c stdlib function
  * of the same name.
  *
- * @returns Character from the uart fifo
+ * @returns Character from the uart rx fifo
  */
 int getchar(void);
 

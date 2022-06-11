@@ -86,7 +86,7 @@ module uart #(
 
   assign rx_fifo_wvalid = rx_baud_tick & rx_valid;
   assign rx_fifo_rready = rx_read_req_q;
-  assign rx_fifo_empty = (rx_fifo_depth == '0);
+  assign rx_fifo_empty  = (rx_fifo_depth == '0);
 
   assign tx_fifo_wvalid = tx_req & write_req;
   assign tx_fifo_rready = tx_baud_tick & tx_next_byte;
@@ -283,7 +283,5 @@ module uart #(
       end
     endcase
   end
-
-
 
 endmodule

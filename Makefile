@@ -70,4 +70,4 @@ run-sim: build-sw build-sim
 
 .PHONY: clean
 clean:
-	@rm -rf build sw/build
+	-rm -rf build sw/build
