@@ -71,7 +71,8 @@ parameters:
   SRAMInitFile:
     datatype: str
     description: SRAM initialization file in vmem hex format
-    default: "../../../../../sw/build/blank/blank.vmem"
+    # default: "../../../../../sw/build/blank/blank.vmem"
+    default: "../../../../../sw/build/demo/demo.vmem"
     paramtype: vlogparam
 
   # BranchTargetALU:

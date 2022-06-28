@@ -1,5 +1,6 @@
 # Build output
 build
+sim-build
 logs
 
 # Common editor/IDE config and temporary files
@@ -14,3 +15,9 @@ tags
 # Python
 .venv
 __pycache__
+.pytest_cache
+
+# Waveform/results files
+*.vcd
+*.fst
+results.xml
