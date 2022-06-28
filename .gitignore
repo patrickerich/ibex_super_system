@@ -1,6 +1,6 @@
 # Build output
 build
-sim-build
+sim_build
 logs
 
 # Common editor/IDE config and temporary files

@@ -1,7 +1,3 @@
-# Copyright lowRISC contributors.
-# Licensed under the Apache License, Version 2.0, see LICENSE for details.
-# SPDX-License-Identifier: Apache-2.0
-
 # Development version of edalize with vivado-run-main function restored
 git+https://github.com/patrickerich/edalize.git@vivado-run-main
 
@@ -15,3 +11,5 @@ git+https://github.com/cocotb/cocotb.git
 git+https://github.com/cocotb/cocotb-bus.git
 git+https://github.com/themperek/cocotb-test.git
 git+https://github.com/alexforencich/cocotbext-uart.git
+
+flake8

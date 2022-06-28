@@ -1,13 +1,11 @@
 TOPLEVEL_LANG ?= verilog
 SIM ?= verilator
-WAVES ?= 1
-COCOTB_HDL_TIMEUNIT = 1ns
-COCOTB_HDL_TIMEPRECISION = 1ns
 DUT = ibex_super_system
 TOPLEVEL = $(DUT)
 MODULE = tb_$(DUT)
 
 FUSESOC_DIR = /home/patrick/Projects/RISCV/ibex_super_system/build/lowrisc_ibex_ibex_super_system_0
+# SRAM_FILE = /home/patrick/Projects/RISCV/ibex_super_system/sw/build/demo/demo.vmem
 
 VERILOG_SOURCES = 
 VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_pkg_0.1/rtl/ibex_pkg.sv
@@ -84,26 +82,26 @@ VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_lfsr_0.1/rtl/prim_lfsr.sv
 VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_abstract_clock_mux2_0/prim_clock_mux2.sv
 VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_abstract_ram_2p_0/prim_ram_2p.sv
 VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_badbit_ram_1p_0/prim_badbit_ram_1p.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_alu.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_branch_predict.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_compressed_decoder.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_controller.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_cs_registers.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_csr.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_counter.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_decoder.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_ex_block.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_fetch_fifo.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_id_stage.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_if_stage.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_load_store_unit.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_multdiv_fast.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_multdiv_slow.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_prefetch_buffer.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_pmp.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_wb_stage.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_dummy_instr.sv
-VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_core.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_alu.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_branch_predict.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_compressed_decoder.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_controller.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_cs_registers.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_csr.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_counter.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_decoder.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_ex_block.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_fetch_fifo.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_id_stage.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_if_stage.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_load_store_unit.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_multdiv_fast.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_multdiv_slow.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_prefetch_buffer.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_pmp.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_wb_stage.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_dummy_instr.sv
+# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_core.sv
 VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_abstract_ram_1p_0/prim_ram_1p.sv
 VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_fifo_0/rtl/prim_fifo_async_sram_adapter.sv
 VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_fifo_0/rtl/prim_fifo_async.sv
@@ -140,9 +138,12 @@ COMPILE_ARGS += -Wno-DECLFILENAME
 COMPILE_ARGS += -Wno-PINMISSING
 COMPILE_ARGS += -Wno-PINCONNECTEMPTY
 COMPILE_ARGS += -Wno-PINNOCONNECT
-COMPILE_ARGS += -CFLAGS "-std=c++11 -Wall -DVM_TRACE_FMT_FST -DTOPLEVEL_NAME=ibex_super_system -g"
+COMPILE_ARGS += -CFLAGS "-std=c++11 \
+                         -Wall \
+						 -DVM_TRACE_FMT_FST \
+						 -DTOPLEVEL_NAME=ibex_super_system \
+						 -g"
 COMPILE_ARGS += -LDFLAGS "-pthread -lutil -lelf"
-# COMPILE_ARGS += -Wwarn-IMPERFECTSCH
 COMPILE_ARGS += --unroll-count 72
 COMPILE_ARGS += --timescale-override 1ns/1ps
 COMPILE_ARGS += --trace
@@ -151,23 +152,17 @@ COMPILE_ARGS += --trace-structs
 COMPILE_ARGS += --trace-params
 COMPILE_ARGS += --trace-max-array 1024
 COMPILE_ARGS += --trace-threads 2
+COMPILE_ARGS += -I$(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl
 COMPILE_ARGS += -I$(FUSESOC_DIR)/src/lowrisc_dv_dv_fcov_macros_0
 COMPILE_ARGS += -I$(FUSESOC_DIR)/src/lowrisc_prim_util_get_scramble_params_0/rtl
 COMPILE_ARGS += -I$(FUSESOC_DIR)/src/lowrisc_prim_util_memload_0/rtl
 COMPILE_ARGS += -I$(FUSESOC_DIR)/src/lowrisc_prim_assert_0.1/rtl
 COMPILE_ARGS += -I$(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl
 
-
-# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_dv_dv_fcov_macros_0/dv_fcov_macros.svh
-# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_util_get_scramble_params_0/rtl/prim_util_get_scramble_params.svh
-# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_util_memload_0/rtl/prim_util_memload.svh
-# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_assert_0.1/rtl/prim_assert_dummy_macros.svh
-# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_assert_0.1/rtl/prim_assert_yosys_macros.svh
-# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_prim_assert_0.1/rtl/prim_assert_standard_macros.svh
-# VERILOG_SOURCES += $(FUSESOC_DIR)/src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_pmp_reset_default.svh
-
-
 MODULE = tb_ibex_super_system
 TOPLEVEL = ibex_super_system
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
+
+
+#  -DSRAMInitFile=$(SRAM_FILE)

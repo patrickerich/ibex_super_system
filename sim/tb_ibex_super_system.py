@@ -10,9 +10,10 @@ async def ibex_super_system_simple_test(dut):
     '''
     dut._log.info("Running default test case.....")
 
-    tb_obj = TestBench(dut, period_ns=20)
-    tb_obj.log_verbose = True
-    await tb_obj.start_clock()
-    await tb_obj.reset_dut()
+    tb = TestBench(dut, period=20, period_unit='ns')
+    tb.log_verbose = True
+    await tb.start_clock()
+    await tb.reset(periods=3)
+    await tb.run_for(periods=100)
 
     dut._log.info("Running default test case.....done")

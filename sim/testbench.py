@@ -8,27 +8,37 @@ from cocotb.triggers import Timer
 
 class TestBench():
 
-    def __init__(self, dut, period_ns):
+    def __init__(self, dut, period, period_unit):
         '''
             Initialize the testbench
         '''
         self.dut = dut
-        self.period_ns = period_ns
-        self.clk_gen = None
+        self.period = period
+        self.period_unit = period_unit
 
     async def start_clock(self):
         '''
-            Create and start the clock signal
+            Create and start the clock signal (keep a handle just in case)
         '''
-        self.clk_gen = cocotb.start_soon(Clock(
-            self.dut.clk_sys_i,
-            self.period_ns,
-            units='ns').start())
+        self.clk = cocotb.start_soon(Clock(
+            signal=self.dut.clk_sys_i,
+            period=self.period,
+            units=self.period_unit).start()
+        )
 
-    async def reset_dut(self):
+    async def run_for(self, periods):
         '''
-            Reset the DUT (asynchronously)
+            Run the DUT for a specific number of clock periods
         '''
-        self.dut.rst_sys_ni <= 0
-        await Timer(3*self.period_ns, units='ns')
-        self.dut.rst_sys_ni <= 1
+        await Timer(periods*self.period, units=self.period_unit)
+
+    async def reset(self, periods):
+        '''
+            Reset the DUT
+        '''
+        self.dut.rst_sys_ni.value = 0
+        await self.run_for(periods)
+        self.dut.rst_sys_ni.value = 1
+
+    
+        
