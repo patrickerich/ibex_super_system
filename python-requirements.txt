@@ -12,4 +12,10 @@ git+https://github.com/cocotb/cocotb-bus.git
 git+https://github.com/themperek/cocotb-test.git
 git+https://github.com/alexforencich/cocotbext-uart.git
 
+
+pytest-logging
+pytest-xdist
+pytest-parallel
+pytest-html
+#pytest-sugar
 flake8

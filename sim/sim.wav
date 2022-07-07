@@ -1,0 +1,174 @@
+[*]
+[*] GTKWave Analyzer v3.3.111 (w)1999-2020 BSI
+[*] Thu Jul  7 14:48:05 2022
+[*]
+[dumpfile] "/home/patrick/Projects/RISCV/ibex_super_system/build/lowrisc_ibex_ibex_super_system_0/sim-cocotb/dump.fst"
+[dumpfile_mtime] "Thu Jul  7 14:42:47 2022"
+[dumpfile_size] 1972269
+[savefile] "/home/patrick/Projects/RISCV/ibex_super_system/sim/sim.wav"
+[timestart] 0
+[size] 2553 720
+[pos] -1 -1
+*-16.264156 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] ibex_super_system.
+[treeopen] ibex_super_system.u_top.
+[treeopen] ibex_super_system.u_top.u_ibex_core.
+[treeopen] ibex_super_system.u_top.u_ibex_core.cs_registers_i.
+[treeopen] ibex_super_system.u_top.u_ibex_core.cs_registers_i.dcsr_q.
+[treeopen] ibex_super_system.u_top.u_ibex_core.id_stage_i.
+[treeopen] ibex_super_system.u_top.u_ibex_core.id_stage_i.controller_i.
+[treeopen] ibex_super_system.u_uart.u_tx_fifo.
+[sst_width] 506
+[signals_width] 325
+[sst_expanded] 1
+[sst_vpaned_height] 181
+@200
+-toplevel signals
+@29
+rst_sys_ni
+@28
+clk_sys_i
+@800028
+#{ibex_super_system.device_req[0:4]} ibex_super_system.device_req[0] ibex_super_system.device_req[1] ibex_super_system.device_req[2] ibex_super_system.device_req[3] ibex_super_system.device_req[4]
+@28
+ibex_super_system.device_req[0]
+ibex_super_system.device_req[1]
+ibex_super_system.device_req[2]
+ibex_super_system.device_req[3]
+ibex_super_system.device_req[4]
+@1001200
+-group_end
+@22
+gp_o[15:0]
+@28
+uart_rx_i
+uart_tx_o
+@200
+-
+-CSR signals
+@28
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.rst_ni
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.irqs_o.irq_timer
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.irqs_o.irq_software
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.mie_q.irq_timer
+@22
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.mie_q.irq_fast[14:0]
+@200
+-
+@22
+ibex_super_system.core_instr_addr[31:0]
+ibex_super_system.core_instr_rdata[31:0]
+@28
+ibex_super_system.u_top.u_ibex_core.id_stage_i.controller_i.instr_valid_i
+ibex_super_system.u_top.u_ibex_core.id_stage_i.controller_i.instr_fetch_err_i
+ibex_super_system.u_top.u_ibex_core.id_stage_i.controller_i.illegal_insn_d
+ibex_super_system.u_top.u_ibex_core.id_stage_i.controller_i.illegal_insn_i
+ibex_super_system.u_top.u_ibex_core.id_stage_i.illegal_csr_insn_i
+ibex_super_system.u_top.u_ibex_core.illegal_csr_insn_id
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.illegal_csr_priv
+@22
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.csr_addr[11:0]
+@100000028
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.priv_lvl_q[1:0]
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.dcsr_q.prv[1:0]
+ibex_super_system.u_top.u_ibex_core.cs_registers_i.mstatus_q.mpp[1:0]
+@200
+-
+-uart signals
+@28
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.empty
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.full
+@24
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.fifo_wptr[7:0]
+@820
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[0][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[1][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[2][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[3][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[4][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[5][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[6][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[7][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[8][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[9][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[10][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[11][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[12][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[13][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[14][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[15][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[16][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[17][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[18][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[19][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[20][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[21][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[22][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[23][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[24][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[25][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[26][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[27][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[28][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[29][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[30][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[31][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[32][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[33][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[34][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[35][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[36][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[37][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[38][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[39][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[40][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[41][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[42][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[43][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[44][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[45][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[46][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[47][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[48][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[49][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[50][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[51][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[52][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[53][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[54][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[55][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[56][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[57][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[58][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[59][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[60][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[61][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[62][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[63][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[64][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[65][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[66][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[67][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[68][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[69][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[70][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[71][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[72][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[73][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[74][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[75][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[76][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[77][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[78][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[79][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[80][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[81][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[82][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[83][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[84][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[85][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[86][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[87][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[88][7:0]
+[pattern_trace] 1
+[pattern_trace] 0

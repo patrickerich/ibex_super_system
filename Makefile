@@ -58,6 +58,12 @@ debug-demo: load-demo-halt
 py-hello:
 	python sw/demo/uart_hello.py
 
+.PHONY: init-sim
+init-sim:
+	fusesoc --cores-root=. run --target=sim --setup --build \
+		lowrisc:ibex:ibex_super_system \
+		--SRAMInitFile=$(SIMPROG)
+
 .PHONY: build-sim
 build-sim:
 	fusesoc --cores-root=. run --target=sim --setup --build \
@@ -66,8 +72,20 @@ build-sim:
 
 .PHONY: run-sim
 run-sim: build-sw build-sim
-	./build/lowrisc_ibex_super_system_0/sim-verilator/Vibex_super_system +trace > build/verilator.log 2>&1
+	./build/lowrisc_ibex_ibex_super_system_0/sim-verilator/Vibex_super_system +trace > build/verilator.log 2>&1
 
-.PHONY: clean
-clean:
+.PHONY: clean-sw
+clean-sw:
+	-rm -rf sw/build
+
+.PHONY: clean-hw
+clean-hw:
+	-rm -rf build/lowrisc_ibex_ibex_super_system_0/synth-vivado
+
+.PHONY: clean-sim
+clean-sim:
+	-rm -rf build/lowrisc_ibex_ibex_super_system_0/sim-*
+
+.PHONY: clean-all
+clean-all:
 	-rm -rf build sw/build

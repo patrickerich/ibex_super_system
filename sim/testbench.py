@@ -1,8 +1,13 @@
-import os
+# import os
 import cocotb
 from cocotb.clock import Clock
-# from cocotb.triggers import Timer, ReadOnly, RisingEdge, FallingEdge, NextTimeStep
-from cocotb.triggers import Timer
+from cocotb.triggers import (
+    Timer,
+    # ReadOnly,
+    # RisingEdge,
+    # FallingEdge,
+    # NextTimeStep,
+)
 # from cocotbext.uart import UartSource, UartSink
 
 
@@ -15,6 +20,21 @@ class TestBench():
         self.dut = dut
         self.period = period
         self.period_unit = period_unit
+        self.init_inputs()
+
+    def init_inputs(self):
+        self.dut.rst_sys_ni.value = 1
+        self.dut.clk_sys_i.value = 0
+        self.dut.uart_rx_i.value = 1
+
+    async def reset(self, delay_periods, reset_periods):
+        '''
+            Reset the DUT
+        '''
+        await self.run_for(delay_periods)
+        self.dut.rst_sys_ni.value = 0
+        await self.run_for(reset_periods)
+        self.dut.rst_sys_ni.value = 1
 
     async def start_clock(self):
         '''
@@ -26,19 +46,15 @@ class TestBench():
             units=self.period_unit).start()
         )
 
-    async def run_for(self, periods):
+    def stop_clock(self):
+        '''
+            kill the clock signal
+        '''
+        if self.clk:
+            self.clk.kill()
+
+    async def run_for(self, run_periods):
         '''
             Run the DUT for a specific number of clock periods
         '''
-        await Timer(periods*self.period, units=self.period_unit)
-
-    async def reset(self, periods):
-        '''
-            Reset the DUT
-        '''
-        self.dut.rst_sys_ni.value = 0
-        await self.run_for(periods)
-        self.dut.rst_sys_ni.value = 1
-
-    
-        
+        await Timer(run_periods*self.period, units=self.period_unit)
