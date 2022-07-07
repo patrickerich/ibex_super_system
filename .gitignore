@@ -21,3 +21,5 @@ __pycache__
 *.vcd
 *.fst
 results.xml
+sim_reports
+
