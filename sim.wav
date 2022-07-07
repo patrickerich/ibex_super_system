@@ -1,32 +1,31 @@
 [*]
 [*] GTKWave Analyzer v3.3.111 (w)1999-2020 BSI
-[*] Thu Jul  7 14:48:05 2022
+[*] Thu Jul  7 14:58:27 2022
 [*]
 [dumpfile] "/home/patrick/Projects/RISCV/ibex_super_system/build/lowrisc_ibex_ibex_super_system_0/sim-cocotb/dump.fst"
-[dumpfile_mtime] "Thu Jul  7 14:42:47 2022"
-[dumpfile_size] 1972269
+[dumpfile_mtime] "Thu Jul  7 14:51:01 2022"
+[dumpfile_size] 2066975
 [savefile] "/home/patrick/Projects/RISCV/ibex_super_system/sim/sim.wav"
 [timestart] 0
-[size] 2553 720
+[size] 2553 1033
 [pos] -1 -1
-*-16.264156 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.264156 129000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ibex_super_system.
-[treeopen] ibex_super_system.u_top.
 [treeopen] ibex_super_system.u_top.u_ibex_core.
 [treeopen] ibex_super_system.u_top.u_ibex_core.cs_registers_i.
 [treeopen] ibex_super_system.u_top.u_ibex_core.cs_registers_i.dcsr_q.
 [treeopen] ibex_super_system.u_top.u_ibex_core.id_stage_i.
 [treeopen] ibex_super_system.u_top.u_ibex_core.id_stage_i.controller_i.
+[treeopen] ibex_super_system.u_uart.
 [treeopen] ibex_super_system.u_uart.u_tx_fifo.
 [sst_width] 506
 [signals_width] 325
 [sst_expanded] 1
-[sst_vpaned_height] 181
+[sst_vpaned_height] 287
 @200
 -toplevel signals
-@29
-rst_sys_ni
 @28
+rst_sys_ni
 clk_sys_i
 @800028
 #{ibex_super_system.device_req[0:4]} ibex_super_system.device_req[0] ibex_super_system.device_req[1] ibex_super_system.device_req[2] ibex_super_system.device_req[3] ibex_super_system.device_req[4]
@@ -43,6 +42,29 @@ gp_o[15:0]
 @28
 uart_rx_i
 uart_tx_o
+@24
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.fifo_wptr[7:0]
+@821
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[0][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[1][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[2][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[3][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[4][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[5][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[6][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[7][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[8][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[9][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[10][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[11][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[12][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[13][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[14][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[15][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[16][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[17][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[18][7:0]
+ibex_super_system.u_uart.u_tx_fifo.gen_normal_fifo.storage[19][7:0]
 @200
 -
 -CSR signals

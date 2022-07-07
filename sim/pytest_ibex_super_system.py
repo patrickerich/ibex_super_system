@@ -39,14 +39,15 @@ vlt_files = []
 
 verilog_includes = []
 verilog_sources = []
-c_includes = []
-c_sources = []
-cpp_includes = []
-cpp_sources = []
 
 # Make sure the Fusesoc EDAM file exists and is up to date
 with subprocess.Popen(
-  args=['make', 'init-sim'],
+  args = [
+    'fusesoc', '--cores-root=.', 'run' , 
+    '--target=sim', '--setup', 'lowrisc:ibex:ibex_super_system', 
+    '--SRAMInitFile=$(SIMPROG)'
+  ]
+#   args=['make', 'init-sim'],
   stdout=subprocess.PIPE,
   cwd=PROJ_ROOT) as proc:
     print(proc.stdout.read().decode())
@@ -63,12 +64,6 @@ with open(fusesoc_edam) as eda_yaml_f:
     eda_yaml = yaml.safe_load(eda_yaml_f)
 for f in eda_yaml['files']:
     if 'file_type' in f:
-        # # Waiver files
-        # if f['file_type'] == 'vlt':
-        #     vlt_file = fusesoc_build.joinpath(f['name']).resolve()
-        #     if vlt_file not in vlt_files:
-        #         vlt_files.append(vlt_file)
-        # Verilog sources/includes
         if f['file_type'] in ['systemVerilogSource', 'verilogSource']:
             if 'is_include_file' in f:
                 if f['is_include_file']:
@@ -87,48 +82,12 @@ for f in eda_yaml['files']:
                 verilog_source = fusesoc_build.joinpath(f['name']).resolve()
                 if verilog_source not in verilog_sources:
                     verilog_sources.append(verilog_source)
-        # # C sources/includes
-        # if f['file_type'] == 'cSource':
-        #     if 'is_include_file' in f:
-        #         if f['is_include_file']:
-        #             c_include = fusesoc_build.joinpath(f['name']).parent.resolve()
-        #             if c_include not in c_includes:
-        #                 c_includes.append(c_include)
-        #         else:
-        #             c_source = fusesoc_build.joinpath(f['name']).resolve()
-        #             if c_source not in c_sources:
-        #                 c_sources.append(verilog_source)
-        #     else:
-        #         c_source = fusesoc_build.joinpath(f['name']).resolve()
-        #         if c_source not in c_sources:
-        #             c_sources.append(c_source)
-        # # Cpp sources/includes
-        # if f['file_type'] == 'cppSource':
-        #     if 'is_include_file' in f:
-        #         if f['is_include_file']:
-        #             cpp_include = fusesoc_build.joinpath(f['name']).parent.resolve()
-        #             if cpp_include not in cpp_includes:
-        #                 cpp_includes.append(cpp_include)
-        #         else:
-        #             cpp_source = fusesoc_build.joinpath(f['name']).resolve()
-        #             if cpp_source not in cpp_sources:
-        #                 cpp_sources.append(cpp_source)
-        #     else:
-        #         cpp_source = fusesoc_build.joinpath(f['name']).resolve()
-        #         if cpp_source not in cpp_sources:
-        #             cpp_sources.append(cpp_source)
-
-
-# For now merge the sources and includes (without duplicates)
-includes = list(set(verilog_includes + c_includes + cpp_includes))
-sources = list(set(vlt_files + verilog_sources + c_sources + cpp_sources))
-
 
 # Define the timescale (comment out if not needed/used!)
 timescale = '1ns/1ps'
 
 if sim == 'verilator':
-    for include in includes:
+    for include in verilog_includes:
         compile_args.append(f'+incdir+{include}')
         compile_args.extend(['-CFLAGS', f'-I{include}'])
     compile_args.append(f'-GSRAMInitFile="{sram_file}"')

@@ -58,21 +58,14 @@ debug-demo: load-demo-halt
 py-hello:
 	python sw/demo/uart_hello.py
 
-.PHONY: init-sim
-init-sim:
-	fusesoc --cores-root=. run --target=sim --setup --build \
-		lowrisc:ibex:ibex_super_system \
-		--SRAMInitFile=$(SIMPROG)
-
-.PHONY: build-sim
-build-sim:
-	fusesoc --cores-root=. run --target=sim --setup --build \
-		lowrisc:ibex:ibex_super_system \
-		--SRAMInitFile=$(SIMPROG)
-
 .PHONY: run-sim
-run-sim: build-sw build-sim
-	./build/lowrisc_ibex_ibex_super_system_0/sim-verilator/Vibex_super_system +trace > build/verilator.log 2>&1
+run-sim:
+	(cd sim && python run_tests.py)
+
+.PHONY: view-wave
+view-wave:
+	gtkwave -f build/lowrisc_ibex_ibex_super_system_0/sim-cocotb/dump.fst \
+	        -a ./sim.wav &
 
 .PHONY: clean-sw
 clean-sw:
@@ -85,7 +78,24 @@ clean-hw:
 .PHONY: clean-sim
 clean-sim:
 	-rm -rf build/lowrisc_ibex_ibex_super_system_0/sim-*
+	-rm -rf sim/__pycache__ sim/.pytest_cache sim_build
+	-rm -rf sim/sim_reports
 
 .PHONY: clean-all
 clean-all:
 	-rm -rf build sw/build
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
