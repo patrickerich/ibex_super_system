@@ -42,12 +42,11 @@ verilog_sources = []
 
 # Make sure the Fusesoc EDAM file exists and is up to date
 with subprocess.Popen(
-  args = [
-    'fusesoc', '--cores-root=.', 'run' , 
-    '--target=sim', '--setup', 'lowrisc:ibex:ibex_super_system', 
+  args=[
+    'fusesoc', '--cores-root=.', 'run',
+    '--target=sim', '--setup', 'lowrisc:ibex:ibex_super_system',
     '--SRAMInitFile=$(SIMPROG)'
-  ]
-#   args=['make', 'init-sim'],
+  ],
   stdout=subprocess.PIPE,
   cwd=PROJ_ROOT) as proc:
     print(proc.stdout.read().decode())

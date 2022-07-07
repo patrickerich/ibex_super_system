@@ -82,20 +82,5 @@ clean-sim:
 	-rm -rf sim/sim_reports
 
 .PHONY: clean-all
-clean-all:
+clean-all: clean-sw clean-hw clean-sim
 	-rm -rf build sw/build
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
