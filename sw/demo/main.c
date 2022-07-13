@@ -19,7 +19,6 @@ int main(void) {
   uint32_t cur_output_bit_index = 0;
 
   set_outputs(GPIO0, 0x0);
-  puts("Hello World start! ");
 
   while(1) {
     uint64_t cur_time = get_elapsed_time();

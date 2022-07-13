@@ -6,7 +6,6 @@ DEVICE ?= /dev/ttyUSB1
 BAUDRATE ?= 115200
 
 HWPROG = $(PWD)/sw/build/demo/demo
-# SIMPROG = $(PWD)/sw/build/blank/blank.vmem
 SIMPROG = $(HWPROG).vmem
 
 all: clean build-sw build-hw program-hw load-demo-run
@@ -29,6 +28,7 @@ build-sw:
 program-hw:
 	fusesoc --cores-root=. run --target=synth --run \
 		lowrisc:ibex:ibex_super_system
+	# Below command will also work
 	# make -C ./build/lowrisc_ibex_super_system_0/synth-vivado/ pgm
 
 .PHONY: start-vivado
@@ -58,14 +58,26 @@ debug-demo: load-demo-halt
 py-hello:
 	python sw/demo/uart_hello.py
 
-.PHONY: run-sim
-run-sim:
-	(cd sim && python run_tests.py)
+.PHONY: setup-sims
+setup-sims:
+	fusesoc --cores-root=. run --target=sim --setup \
+		lowrisc:ibex:ibex_super_system   \
+		--SRAMInitFile=$(SIMPROG)
+
+.PHONY: run-sims
+run-sims: build-sw setup-sims
+	(cd sim && mkdir -p sim_reports && \
+	SIM=verilator pytest \
+	   -n 1 \
+	   -o cache_dir=.pytest_cache \
+	   -o python_files="pytest_*.py" \
+	   --html=sim_reports/sim_report_$$(date +%Y%m%d%H%M%S).html \
+	)
 
 .PHONY: view-wave
 view-wave:
 	gtkwave -f build/lowrisc_ibex_ibex_super_system_0/sim-cocotb/dump.fst \
-	        -a ./sim.wav &
+	        -a sim/sim.wav &
 
 .PHONY: clean-sw
 clean-sw:
@@ -78,9 +90,12 @@ clean-hw:
 .PHONY: clean-sim
 clean-sim:
 	-rm -rf build/lowrisc_ibex_ibex_super_system_0/sim-*
-	-rm -rf sim/__pycache__ sim/.pytest_cache sim_build
+	-rm -rf sim/__pycache__ sim/.pytest_cache
+
+.PHONY: clean-sim-results
+clean-sim-results:
 	-rm -rf sim/sim_reports
 
 .PHONY: clean-all
-clean-all: clean-sw clean-hw clean-sim
-	-rm -rf build sw/build
+clean-all: clean-sw clean-hw clean-sim clean-sim-results
+	-rm -rf build

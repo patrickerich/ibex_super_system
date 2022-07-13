@@ -16,9 +16,6 @@ filesets:
   files_sim:
     depend:
       - lowrisc:ibex:ibex_super_system_core
-    # files:
-    #   - sim/ibex_super_system_main.cc
-    # file_type: cppSource
 
   files_constraints:
     files:
@@ -35,7 +32,6 @@ parameters:
   SRAMInitFile:
     datatype: str
     description: SRAM initialization file in vmem hex format
-    # default: "../../../../../sw/build/blank/blank.vmem"
     default: "../../../../../sw/build/demo/demo.vmem"
     paramtype: vlogparam
 
@@ -87,15 +83,24 @@ targets:
         verilator_options:
           # Disabling tracing reduces compile times but doesn't have a
           # huge influence on runtime performance.
+          - '--timescale-override 1ns/1ps'
           - '--trace'
           - '--trace-fst' # this requires -DVM_TRACE_FMT_FST in CFLAGS below!
           - '--trace-structs'
           - '--trace-params'
           - '--trace-max-array 1024'
+          - '--trace-threads 2'
           - '-CFLAGS "-std=c++11 -Wall -DVM_TRACE_FMT_FST -DTOPLEVEL_NAME=ibex_super_system -g"'
           - '-LDFLAGS "-pthread -lutil -lelf"'
-          - "-Wall"
-          - "-Wwarn-IMPERFECTSCH"
+          - '-Wall'
+          # TODO: Check if this is really needed!
+          - '-Wno-SELRANGE'
+          - '-Wno-WIDTH'
+          - '-Wno-DECLFILENAME'
+          - '-Wno-PINMISSING'
+          - '-Wno-PINCONNECTEMPTY'
+          - '-Wno-PINNOCONNECT'
+          # - "-Wwarn-IMPERFECTSCH"
           # RAM primitives wider than 64bit (required for ECC) fail to build in
           # Verilator without increasing the unroll count (see Verilator#1266)
-          - "--unroll-count 72"
+          - '--unroll-count 72'

@@ -30,8 +30,6 @@ filesets:
       - lowrisc:dv_verilator:ibex_pcounts
       - lowrisc:ibex:sim_shared
     files:
-      # - sim/ibex_super_system.cc: { file_type: cppSource }
-      # - sim/ibex_super_system.h:  { file_type: cppSource, is_include_file: true}
       - lint/verilator_waiver.vlt: {file_type: vlt}
 
 targets:
