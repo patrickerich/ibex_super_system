@@ -70,27 +70,32 @@ class CocotbBridge:
                         f['name']).resolve()
                     if waiver_file not in self.waiver_files:
                         self.waiver_files.append(waiver_file)
-    
+
     def get_compile_args(self):
         if self.sim == 'verilator':
-            for param in self.eda_yaml['parameters']:
-                value = self.eda_yaml['parameters'][param]['default']
-                if self.eda_yaml['parameters'][param]['datatype'] == 'bool':
-                    value = int(value)
-                if self.eda_yaml['parameters'][param]['paramtype'] == 'vlogparam':
-                    self.compile_args.append(f'-G{param}="{value}"')
-                elif self.eda_yaml['parameters'][param]['paramtype'] == 'vlogdefine':
-                    self.compile_args.append(f'-D{param}={value}')
-            for include in self.verilog_includes:
+            params = self.eda_yaml['parameters']
+            includes = self.verilog_includes
+            options = self.eda_yaml['tool_options'][self.sim][f'{self.sim}_options']
+            for param in params:
+                datatype = self.eda_yaml['parameters'][param]['datatype']
+                paramtype = self.eda_yaml['parameters'][param]['paramtype']
+                default = self.eda_yaml['parameters'][param]['default']
+                if datatype == 'bool':
+                    default = int(default)
+                if paramtype == 'vlogparam':
+                    self.compile_args.append(f'-G{param}="{default}"')
+                elif paramtype == 'vlogdefine':
+                    self.compile_args.append(f'-D{param}={default}')
+            for include in includes:
                 self.compile_args.append(f'+incdir+{include}')
                 self.compile_args.extend(['-CFLAGS', f'-I{include}'])
-            for option in self.eda_yaml['tool_options'][self.sim][f'{self.sim}_options']:
+            for option in options:
                 if '"' in option:
                     main_option = option.split('"')[0]
                     sub_options = option.split('"')[1].split()
                     for sub_option in sub_options:
-                        self.compile_args.extend([main_option.strip(), sub_option.strip()])
+                        self.compile_args.extend(
+                            [main_option.strip(), sub_option.strip()]
+                        )
                 else:
                     self.compile_args.extend(option.split())
-            if 'timescale' in globals():
-                self.compile_args.extend(['--timescale-override', timescale])

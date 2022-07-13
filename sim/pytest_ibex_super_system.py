@@ -3,7 +3,7 @@ from cocotb_bridge import CocotbBridge
 from cocotb_test.simulator import run
 
 
-build_dir =  Path(__file__).parent.joinpath('..', 'build').resolve()
+build_dir = Path(__file__).parent.joinpath('..', 'build').resolve()
 sim_helper = CocotbBridge(build_dir)
 
 
