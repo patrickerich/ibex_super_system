@@ -1,5 +1,6 @@
 # Development version of edalize with vivado-run-main function restored
-git+https://github.com/patrickerich/edalize.git@vivado-run-main
+# git+https://github.com/patrickerich/edalize.git@vivado-run-main
+git+https://github.com/olofk/edalize.git
 
 # Development version with OT-specific changes
 git+https://github.com/lowRISC/fusesoc.git@ot
@@ -13,9 +14,10 @@ git+https://github.com/themperek/cocotb-test.git
 git+https://github.com/alexforencich/cocotbext-uart.git
 
 
+pyserial
+
 pytest-logging
 pytest-xdist
 pytest-parallel
 pytest-html
-#pytest-sugar
 flake8

@@ -1,6 +1,7 @@
 #ifndef SUPER_SYSTEM_H_
 #define SUPER_SYSTEM_H_
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #include "uart.h"
@@ -22,6 +23,13 @@
  * @returns Character output (never fails so no EOF ever returned)
  */
 int putchar(int c);
+
+/**
+ * Checks the default UART for any characters waiting to be processed
+ *
+ * @returns Boolean indicating a character is available in the default UART
+ */
+bool is_char_waiting(void);
 
 /**
  * Reads character from default UART. Signature matches c stdlib function

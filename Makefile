@@ -5,7 +5,7 @@ FPGA ?= $(ARTY100)
 DEVICE ?= /dev/ttyUSB1
 BAUDRATE ?= 115200
 
-HWPROG = $(PWD)/sw/build/demo/demo
+HWPROG = $(PWD)/sw/build/demo_uart/demo_uart
 SIMPROG = $(HWPROG).vmem
 
 all: clean build-sw build-hw program-hw load-demo-run

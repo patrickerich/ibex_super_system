@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #include "super_system.h"
 #include "uart.h"
 
@@ -9,6 +11,10 @@ int putchar(int c) {
   uart_out(DEFAULT_UART, c);
 
   return c;
+}
+
+bool is_char_waiting(void) {
+  return !is_rx_empty(DEFAULT_UART);
 }
 
 int getchar(void) {

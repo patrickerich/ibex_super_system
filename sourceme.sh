@@ -1,5 +1,4 @@
-#!/usr/bin/env zsh
-THIS_SCRIPT=$0:A
+THIS_SCRIPT=$(readlink -f "$0")
 export PROJ_DIR=$(dirname "$THIS_SCRIPT")
 
 # The RISCV compiler
