@@ -18,4 +18,5 @@ endfunction()
 add_subdirectory(demo)
 add_subdirectory(blank)
 add_subdirectory(demo_uart)
+add_subdirectory(cmdint)
 

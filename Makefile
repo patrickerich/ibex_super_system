@@ -5,20 +5,16 @@ FPGA ?= $(ARTY100)
 DEVICE ?= /dev/ttyUSB1
 BAUDRATE ?= 115200
 
-HWPROG = $(PWD)/sw/build/demo_uart/demo_uart
+HWPROG = $(PWD)/sw/build/cmdint/cmdint
 SIMPROG = $(HWPROG).vmem
 
-all: clean build-sw build-hw program-hw load-demo-run
-
-.PHONY: lint
-lint:
-	fusesoc --cores-root=. run --target=lint \
-		lowrisc:ibex:ibex_super_system
+all: clean-all build-sw build-hw program-hw load-demo-run
 
 .PHONY: build-hw
 build-hw:
 	fusesoc --cores-root=. run --target=synth --setup --build \
-		lowrisc:ibex:ibex_super_system --part $(FPGA)
+		lowrisc:ibex:ibex_super_system --part $(FPGA) \
+		--SRAMInitFile=$(SWPROG)
 
 .PHONY: build-sw
 build-sw:
@@ -27,7 +23,7 @@ build-sw:
 .PHONY: program-hw
 program-hw:
 	fusesoc --cores-root=. run --target=synth --run \
-		lowrisc:ibex:ibex_super_system
+		lowrisc:ibex:ibex_super_system 
 	# Below command will also work
 	# make -C ./build/lowrisc_ibex_super_system_0/synth-vivado/ pgm
 
@@ -39,24 +35,9 @@ start-vivado:
 load-demo-run:
 	./util/load_super_system.sh run $(HWPROG)
 
-.PHONY: load-demo-halt
-load-demo-halt:
-	./util/load_super_system.sh halt $(HWPROG) &
-
-.PHONY: screen-demo
-screen-demo:
-	@echo "Use 'ctrl-a k' to exit the screen command"
-	@sleep 3
-	@screen ${DEVICE} ${BAUDRATE}
-
-.PHONY: debug-demo
-debug-demo: load-demo-halt
-	$(GDB) -ex "target extended-remote localhost:3333" \
-		$(HWPROG)
-
-.PHONY: py-hello
-py-hello:
-	python sw/demo/uart_hello.py
+.PHONY: run-cmdint
+run-cmdint:
+	python sw/cmdint/cmdint.py
 
 .PHONY: setup-sims
 setup-sims:

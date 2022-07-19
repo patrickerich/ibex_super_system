@@ -35,7 +35,7 @@ def main():
         for i in range(tries):
             send_bytes = f"Hello world ({i})".encode('utf-8')
             recv_bytes = device.read(device.write(send_bytes))
-            # print(f"Send: {send_bytes}\tReceived: {recv_bytes}")
+            print(f"Send: {send_bytes}\tReceived: {recv_bytes}")
             if recv_bytes != send_bytes:
                 error_count += 1
         print(f"tries = {tries}")
