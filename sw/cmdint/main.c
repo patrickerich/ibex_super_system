@@ -10,7 +10,7 @@ const char *help =
   "  v\t\tReturns the version number of the device software\n"
 ;
 
-#define VERSION "0.0.2"
+#define VERSION "0.0.1"
 #define ID "IBEXSS_01"
 #define MAXSERIALBUF 128
 char SerialBuf[MAXSERIALBUF];
@@ -62,15 +62,6 @@ void exec_cmd(char **input_items, const uint16_t NoItems) {
         }
         itoa(res, res_str, 10);
         puts(res_str);
-    }
-    else if ((strcmp(input_items[0], "min1")==0) && (NoItems==2)) {
-        itoa(atoi(input_items[1])-1, res_str, 10);
-        puts(res_str);
-    }
-    else if ((strcmp(input_items[0], "pitems")==0) && (NoItems>1)) {
-        for (int i=1; i<NoItems; i++) {
-            puts(input_items[i]);
-        }
     }
     else {
         puts(CNF);

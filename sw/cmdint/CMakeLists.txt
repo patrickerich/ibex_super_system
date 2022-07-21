@@ -1,7 +1,5 @@
 add_prog(cmdint main.c)
 
-# Override linkerflags to not exclude standard lib functions
-# set(CMAKE_EXE_LINKER_FLAGS "-nostdlib -nostartfiles -T${LINKER_SCRIPT}")
 set(CMAKE_EXE_LINKER_FLAGS "-nostartfiles -T${LINKER_SCRIPT}")
 
 add_custom_command(
