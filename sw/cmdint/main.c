@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+#include <stdlib.h>
 #include "super_system.h"
 
 
@@ -22,6 +20,55 @@ const char EOT='\x04';
 const char *CNF="Command not found";
 const char CMD_DELIMS[] = " (),";
 
+
+int my_abs(int value) {
+    if (value < 0) {
+        return -value;
+    }
+    else {
+        return value;
+    }
+}
+
+void swap(char *x, char *y) {
+    char t = *x; *x = *y; *y = t;
+}
+
+char* reverse(char *buffer, int i, int j)
+{
+    while (i < j) {
+        swap(&buffer[i++], &buffer[j--]);
+    }
+     return buffer;
+}
+
+char* my_itoa(int value, char* buffer, int base)
+{
+    if (base < 2 || base > 32) {
+        return buffer;
+    }
+    int n = my_abs(value);
+    int i = 0;
+    while (n)
+    {
+        int r = n % base;
+        if (r >= 10) {
+            buffer[i++] = 65 + (r - 10);
+        }
+        else {
+            buffer[i++] = 48 + r;
+        }
+        n = n / base;
+    }
+    if (i == 0) {
+        buffer[i++] = '0';
+    }
+    if (value < 0 && base == 10) {
+        buffer[i++] = '-';
+    }
+    buffer[i] = '\0'; 
+    return reverse(buffer, 0, i - 1);
+}
 
 int my_atoi(char* str) {
     int res = 0;
@@ -83,7 +130,7 @@ char *my_strtok(char *srcString, const char *delim)
 }
 
 uint16_t fetch_cmd(char *input) {
-    uint16_t NoChars=0;
+    uint16_t NoChars = 0;
     char char_in = getchar();
     while (char_in != EOT) {
         if (is_char_waiting()) {
@@ -96,31 +143,49 @@ uint16_t fetch_cmd(char *input) {
 }
 
 uint16_t proc_cmd(char *input, char **input_items) {
-  uint16_t NoItems=0;
-  char *cmd_item = my_strtok(input, CMD_DELIMS);
-  while (cmd_item != NULL) {
-    input_items[NoItems++]=cmd_item;
-    cmd_item = my_strtok(NULL, CMD_DELIMS);
-  }
-  return NoItems;
+    uint16_t NoItems = 0;
+    char *cmd_item = my_strtok(input, CMD_DELIMS);
+    while (cmd_item != NULL) {
+        input_items[NoItems++]=cmd_item;
+        cmd_item = my_strtok(NULL, CMD_DELIMS);
+    }
+    return NoItems;
 }
 
 void exec_cmd(char **input_items, const uint16_t NoItems) {
-  if (((my_strcmp(input_items[0], "h")==0) || (my_strcmp(input_items[0], "?")==0)) && (NoItems==1)) {
-    puts(help);
-  }
-  else if ((my_strcmp(input_items[0], "id")==0) && (NoItems==1)) {
-    puts(ID);
-  }
-  else if ((my_strcmp(input_items[0], "v")==0) && (NoItems==1)) {
-    puts(VERSION);
-  }
-  else {
-    puts(CNF);
-    puts("\n\n");
-    puts(help);
-  }
-  putchar(EOT);
+    int32_t res = 0;
+    char res_str[10];
+    if (((my_strcmp(input_items[0], "h")==0) || (my_strcmp(input_items[0], "?")==0)) && (NoItems==1)) {
+        puts(help);
+    }
+    else if ((my_strcmp(input_items[0], "id")==0) && (NoItems==1)) {
+        puts(ID);
+    }
+    else if ((my_strcmp(input_items[0], "v")==0) && (NoItems==1)) {
+        puts(VERSION);
+    }
+    else if ((my_strcmp(input_items[0], "add")==0) && (NoItems>1)) {
+        for (int i=1; i<NoItems; i++) {
+            res += my_atoi(input_items[i]);
+        }
+        my_itoa(res, res_str, 10);
+        puts(res_str);
+    }
+    else if ((my_strcmp(input_items[0], "min1")==0) && (NoItems==2)) {
+        my_itoa(my_atoi(input_items[1])-1, res_str, 10);
+        puts(res_str);
+    }
+    else if ((my_strcmp(input_items[0], "pitems")==0) && (NoItems>1)) {
+        for (int i=1; i<NoItems; i++) {
+            puts(input_items[i]);
+        }
+    }
+    else {
+        puts(CNF);
+        puts("\n\n");
+        puts(help);
+    }
+    putchar(EOT);
 }
 
 int main(void) {
