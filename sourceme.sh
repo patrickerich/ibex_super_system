@@ -2,7 +2,9 @@ THIS_SCRIPT=$(readlink -f "$0")
 export PROJ_DIR=$(dirname "$THIS_SCRIPT")
 
 # The RISCV compiler
-CC=/opt/lowrisc/lowrisc-toolchain-gcc-rv32imc-20220210-1/bin
+# CC=/opt/lowrisc/lowrisc-toolchain-gcc-rv32imc-20220210-1/bin
+CC=/opt/lowrisc/lowrisc-toolchain-rv32imcb-20220524-1/bin
+
 path=($CC $path)
 
 # Xilinx settings
