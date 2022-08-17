@@ -8,7 +8,7 @@ CC=/opt/lowrisc/lowrisc-toolchain-rv32imcb-20220524-1/bin
 path=($CC $path)
 
 # Xilinx settings
-XILINX=/opt/Xilinx/Vivado/Vivado/2021.2/settings64.sh
+XILINX=/opt/Xilinx/Vivado/Vivado/2022.1/settings64.sh
 source $XILINX
 
 # The python virtual environment
