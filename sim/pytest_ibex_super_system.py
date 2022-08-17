@@ -1,5 +1,5 @@
 from pathlib import Path
-from cocotb_bridge import CocotbBridge
+from cocotb_bridge.cocotb_bridge import CocotbBridge
 from cocotb_test.simulator import run
 
 

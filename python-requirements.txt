@@ -11,10 +11,12 @@ mako
 git+https://github.com/cocotb/cocotb.git
 git+https://github.com/cocotb/cocotb-bus.git
 git+https://github.com/themperek/cocotb-test.git
+git+https://github.com/patrickerich/cocotb-bridge.git
 git+https://github.com/alexforencich/cocotbext-uart.git
 
 
 pyserial
+
 
 pytest-logging
 pytest-xdist

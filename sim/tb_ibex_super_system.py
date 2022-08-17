@@ -24,7 +24,7 @@ async def ibex_super_system_simple_test(dut):
     # Give the system enough time to boot up
     await tb.run_for(clk_periods=1000)
 
-    send_msg = bytearray('Hello world!', 'utf-8')
+    send_msg = bytearray('id', 'utf-8')
     await tb.uart_source.write(send_msg)
     # Wait long enough...
     await tb.run_for(clk_periods=int(len(send_msg)*11*(1/20E-09)/115200))
@@ -34,6 +34,7 @@ async def ibex_super_system_simple_test(dut):
     print(f'Sent     : {send_msg}')
     print(f'Received : {recv_msg}')
 
-    assert recv_msg == send_msg, "Received message differs from sent message"
+    # assert recv_msg == send_msg, "Received message differs from sent message"
+    assert recv_msg == 'IBEXSS_01', 'Incorrect ID received'
 
     dut._log.info("Running default test case.....done")
