@@ -3,12 +3,13 @@ import cocotb
 from testbench import TestBench
 from curses.ascii import EOT
 
+
 @cocotb.test()
-async def ibex_super_system_cmdint_id_test(dut):
+async def ibexss_cmdint_id_test(dut):
     '''
         Check the ID of the command interpreter
     '''
-    dut._log.info('Verify the ID of the command interpreter (IBEXSS_01)')
+    dut._log.info('Verify the ID of the command interpreter (IBEXSS_**)')
 
     tb = TestBench(
         dut,
@@ -38,9 +39,7 @@ async def ibex_super_system_cmdint_id_test(dut):
     print(f'Received : {recv_msg}')
     # Debug code: end
 
-    # Assert that a correct ID was received
-    # assert recv_msg.decode('utf-8') == f'IBEXSS_01{chr(EOT)}', 'Incorrect ID received'
-    assert recv_msg.decode('utf-8').startswith('IBEXSS_'), 'Incorrect ID received'
+    premise = recv_msg.decode('utf-8').startswith('IBEXSS_')
+    assert premise, 'Incorrect ID received'
 
-    dut._log.info('ID check....done')
-
+    dut._log.info('cmdint id test....done')
