@@ -5,8 +5,13 @@ FPGA ?= $(ARTY100)
 DEVICE ?= /dev/ttyUSB1
 BAUDRATE ?= 115200
 
-HWPROG = $(PWD)/sw/build/cmdint/cmdint
-SIMPROG = $(HWPROG).vmem
+HWPROG := cmdint
+HWPROGFILE = $(PWD)/sw/build/$(HWPROG)/$(HWPROG)
+
+SIMPROG := cmdint
+# SIMPROG := demo
+# SIMPROG := demo_uart
+SIMPROGFILE := $(PWD)/sw/build/$(SIMPROG)/$(SIMPROG).vmem
 
 all: clean-all build-sw build-hw program-hw load-demo-run
 
@@ -14,7 +19,7 @@ all: clean-all build-sw build-hw program-hw load-demo-run
 build-hw:
 	fusesoc --cores-root=. run --target=synth --setup --build \
 		lowrisc:ibex:ibex_super_system --part $(FPGA) \
-		--SRAMInitFile=$(SWPROG)
+		--SRAMInitFile=$(HWPROGFILE)
 
 .PHONY: build-sw
 build-sw:
@@ -33,7 +38,7 @@ start-vivado:
 
 .PHONY: load-demo-run
 load-demo-run:
-	./util/load_super_system.sh run $(HWPROG)
+	./util/load_super_system.sh run $(HWPROGFILE)
 
 .PHONY: run-cmdint
 run-cmdint:
@@ -43,7 +48,7 @@ run-cmdint:
 setup-sims:
 	fusesoc --cores-root=. run --target=sim --setup \
 		lowrisc:ibex:ibex_super_system   \
-		--SRAMInitFile=$(SIMPROG)
+		--SRAMInitFile=$(SIMPROGFILE)
 
 .PHONY: run-sims
 run-sims: build-sw setup-sims
