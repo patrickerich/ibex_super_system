@@ -3,7 +3,7 @@ project(super_system_sw)
 
 set(COMMON_DIR "${CMAKE_CURRENT_LIST_DIR}/common")
 set(LINKER_SCRIPT "${COMMON_DIR}/link.ld")
-set(CMAKE_C_COMPILER riscv32-unknown-elf-gcc)
+set(CMAKE_C_COMPILER "$ENV{RISCV_GCC}")
 set(CMAKE_EXE_LINKER_FLAGS "-nostdlib -nostartfiles -T${LINKER_SCRIPT}")
 set(CMAKE_C_FLAGS "-march=rv32imc -mabi=ilp32 -static -mcmodel=medany -Wall -g \
   -fvisibility=hidden -ffreestanding")

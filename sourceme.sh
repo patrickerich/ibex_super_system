@@ -1,11 +1,12 @@
 THIS_SCRIPT=$(readlink -f "$0")
 export PROJ_DIR=$(dirname "$THIS_SCRIPT")
 
-# The RISCV compiler
-# CC=/opt/lowrisc/lowrisc-toolchain-gcc-rv32imc-20220210-1/bin
-CC=/opt/lowrisc/lowrisc-toolchain-rv32imcb-20220524-1/bin
-
-path=($CC $path)
+# The RISCV toolchain
+# RISCV_TOOLCHAIN=/opt/lowrisc/lowrisc-toolchain-rv32imcb-20220524-1/bin
+RISCV_TOOLCHAIN=/opt/riscv/bin
+export path=($RISCV_TOOLCHAIN $path)
+export RISCV_GCC=$RISCV_TOOLCHAIN/riscv64-unknown-elf-gcc
+export RISCV_OBJCOPY=$RISCV_TOOLCHAIN/riscv64-unknown-elf-objcopy
 
 # Xilinx settings
 XILINX=/opt/Xilinx/Vivado/Vivado/2022.1/settings64.sh

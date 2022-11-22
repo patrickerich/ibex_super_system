@@ -39,7 +39,9 @@ async def ibexss_cmdint_id_test(dut):
     print(f'Received : {recv_msg}')
     # Debug code: end
 
+    # Assert that a correct ID was received
     premise = recv_msg.decode('utf-8').startswith('IBEXSS_')
     assert premise, 'Incorrect ID received'
 
+    dut._log.info(f'premise = {premise}')
     dut._log.info('cmdint id test....done')

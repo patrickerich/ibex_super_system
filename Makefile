@@ -49,6 +49,7 @@ setup-sims:
 	fusesoc --cores-root=. run --target=sim --setup \
 		lowrisc:ibex:ibex_super_system   \
 		--SRAMInitFile=$(SIMPROGFILE)
+# SRAMInitFile can be modified/overridden in the simulation setup
 
 .PHONY: run-sims
 run-sims: build-sw setup-sims
@@ -59,6 +60,7 @@ run-sims: build-sw setup-sims
 	   -o python_files="pytest_*.py" \
 	   --html=sim_reports/sim_report_$$(date +%Y%m%d%H%M%S).html \
 	)
+# Running multiple parallel simulations with different SRAM files seems to cause some problems?
 
 .PHONY: view-wave
 view-wave:
