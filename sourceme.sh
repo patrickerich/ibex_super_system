@@ -9,12 +9,12 @@ export RISCV_GCC=$RISCV_TOOLCHAIN/riscv64-unknown-elf-gcc
 export RISCV_OBJCOPY=$RISCV_TOOLCHAIN/riscv64-unknown-elf-objcopy
 
 # Xilinx settings
-XILINX=/opt/Xilinx/Vivado/Vivado/2022.1/settings64.sh
+XILINX=/opt/Xilinx/Vivado/Vivado/2021.2/settings64.sh
 source $XILINX
 
 # The python virtual environment
 VENV_DIR=$PROJ_DIR/.venv
-VENV_REQS=$PROJ_DIR/python-requirements.txt
+VENV_REQS=$PROJ_DIR/requirements.txt
 VENV_PROMPT=${PROJ_DIR##*/}
 export VENV_ACT=$VENV_DIR/bin/activate
 

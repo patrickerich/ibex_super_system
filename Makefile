@@ -1,4 +1,3 @@
-GDB := riscv32-unknown-elf-gdb
 ARTY35 := xc7a35ticsg324-1L
 ARTY100 := xc7a100tcsg324-1
 FPGA ?= $(ARTY100)
