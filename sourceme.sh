@@ -3,13 +3,16 @@ export PROJ_DIR=$(dirname "$THIS_SCRIPT")
 
 # The RISCV toolchain
 # RISCV_TOOLCHAIN=/opt/lowrisc/lowrisc-toolchain-rv32imcb-20220524-1/bin
-RISCV_TOOLCHAIN=/opt/riscv/bin
+RISCV_TOOLCHAIN=/opt/riscv.newlib/bin
+# RISCV_TOOLCHAIN=/opt/riscv.linux/bin
 export path=($RISCV_TOOLCHAIN $path)
 export RISCV_GCC=$RISCV_TOOLCHAIN/riscv64-unknown-elf-gcc
 export RISCV_OBJCOPY=$RISCV_TOOLCHAIN/riscv64-unknown-elf-objcopy
+# export RISCV_GCC=$RISCV_TOOLCHAIN/riscv64-unknown-linux-gnu-gcc
+# export RISCV_OBJCOPY=$RISCV_TOOLCHAIN/riscv64-unknown-linux-gnu-objcopy
 
 # Xilinx settings
-XILINX=/opt/Xilinx/Vivado/Vivado/2021.2/settings64.sh
+XILINX=/opt/Xilinx/Vivado/2023.2/settings64.sh
 source $XILINX
 
 # The python virtual environment

@@ -1,5 +1,5 @@
 add_prog(demo main.c)
-
+target_link_options(demo PRIVATE "LINKER:--no-warn-rwx-segments")
 
 add_custom_command(
   TARGET demo POST_BUILD

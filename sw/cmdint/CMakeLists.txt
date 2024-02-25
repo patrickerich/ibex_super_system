@@ -1,4 +1,5 @@
 add_prog(cmdint main.c)
+target_link_options(cmdint PRIVATE "LINKER:--no-warn-rwx-segments")
 
 set(CMAKE_EXE_LINKER_FLAGS "-nostartfiles -T${LINKER_SCRIPT}")
 
