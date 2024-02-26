@@ -1,6 +1,5 @@
 add_executable(blank blank.S)
 set_property(SOURCE blank.S PROPERTY LANGUAGE C)
-
 target_link_options(blank PRIVATE "LINKER:--no-warn-rwx-segments")
 
 add_custom_command(
